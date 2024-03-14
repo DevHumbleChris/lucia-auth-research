@@ -2,10 +2,11 @@
   "name": "express-lucia",
   "version": "1.0.0",
   "description": "Research on the lucia auth to an express application",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts"
   },
   "author": "AmChrisKE",
   "license": "MIT",
