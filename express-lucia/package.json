@@ -1,0 +1,15 @@
+{
+  "name": "express-lucia",
+  "version": "1.0.0",
+  "description": "Research on the lucia auth to an express application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AmChrisKE",
+  "license": "MIT",
+  "keywords": [
+    "lucia-auth",
+    "express"
+  ]
+}
