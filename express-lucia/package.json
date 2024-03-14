@@ -4,7 +4,8 @@
   "description": "Research on the lucia auth to an express application",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "AmChrisKE",
   "license": "MIT",
@@ -14,6 +15,7 @@
   ],
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "morgan": "^1.10.0"
   },
