@@ -3,7 +3,7 @@ import { lucia } from "../auth";
 import { generateId } from "lucia";
 import { Argon2id } from "oslo/password";
 import { isValidEmail } from "../validations";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 
 const client = new PrismaClient();
 
@@ -64,6 +64,51 @@ const signup = async (req: Request, res: Response) => {
   }
 };
 
-const signin = async (req: Request, res: Response) => {};
+const signin = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
 
-export { healthCheck, signup };
+  if (!email || typeof email !== "string" || !isValidEmail(email)) {
+    return new Response("Invalid email", {
+      status: 400,
+    });
+  }
+
+  if (!password || typeof password !== "string" || password.length < 6) {
+    return new Response("Invalid password", {
+      status: 400,
+    });
+  }
+
+  // Check if user exists
+  const user = await client.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    return new Response(`Email: ${email}, Doesn't Exists`, {
+      status: 400,
+    });
+  }
+
+  const validPassword = await new Argon2id().verify(user.password, password);
+
+  if (!validPassword) {
+    return new Response("Incorrect Password!", {
+      status: 400,
+    });
+  }
+
+  const session = await lucia.createSession(user.id, {});
+  const sessionCookie = lucia.createSessionCookie(session.id);
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: "/",
+      "Set-Cookie": sessionCookie.serialize(),
+    },
+  });
+};
+
+export { healthCheck, signup, signin };
