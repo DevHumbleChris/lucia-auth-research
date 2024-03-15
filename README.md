@@ -6,6 +6,8 @@ This repository contains research on implementing Lucia auth in various projects
 
 Lucia is an authentication library for your server that abstracts away the complexity of handling sessions. It works alongside your database to provide an API that's easy to use, understand, and extend. This research aims to explore the integration of Lucia auth into different frameworks and platforms.
 
+For more information on Lucia, refer to the [Lucia documentation](https://lucia-auth.com/).
+
 ## Getting Started
 
 To get started with Lucia auth in your project, follow the instructions below based on your chosen framework:
