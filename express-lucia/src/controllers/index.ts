@@ -39,8 +39,23 @@ const signup = async (req: Request, res: Response) => {
   const userId = generateId(15);
 
   try {
+    // Check if user exists
+    const user = await client.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (user) {
+      return res
+        .json({
+          message: `${user.email} exists!`,
+        })
+        .status(400);
+    }
+
     // Create a new User
-    const user = await client.user.create({
+    await client.user.create({
       data: {
         id: userId,
         email,
@@ -56,10 +71,10 @@ const signup = async (req: Request, res: Response) => {
     return res
       .appendHeader("Set-Cookie", sessionCookie.serialize())
       .redirect("/");
-  } catch {
+  } catch (error: any) {
     return res
       .json({
-        message: "Email already used",
+        message: error.message,
       })
       .status(400);
   }
@@ -84,37 +99,45 @@ const signin = async (req: Request, res: Response) => {
       .status(400);
   }
 
-  // Check if user exists
-  const user = await client.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  try {
+    // Check if user exists
+    const user = await client.user.findUnique({
+      where: {
+        email,
+      },
+    });
 
-  if (!user) {
+    if (!user) {
+      return res
+        .json({
+          message: `Email: ${email}, Doesn't Exists`,
+        })
+        .status(400);
+    }
+
+    const validPassword = await new Argon2id().verify(user.password, password);
+
+    if (!validPassword) {
+      return res
+        .json({
+          message: "Incorrect Password!",
+        })
+        .status(400);
+    }
+
+    const session = await lucia.createSession(user.id, {});
+    const sessionCookie = lucia.createSessionCookie(session.id);
+
+    return res
+      .appendHeader("Set-Cookie", sessionCookie.serialize())
+      .redirect("/");
+  } catch (error: any) {
     return res
       .json({
-        message: `Email: ${email}, Doesn't Exists`,
+        message: error.message,
       })
       .status(400);
   }
-
-  const validPassword = await new Argon2id().verify(user.password, password);
-
-  if (!validPassword) {
-    return res
-      .json({
-        message: "Incorrect Password!",
-      })
-      .status(400);
-  }
-
-  const session = await lucia.createSession(user.id, {});
-  const sessionCookie = lucia.createSessionCookie(session.id);
-
-  return res
-    .appendHeader("Set-Cookie", sessionCookie.serialize())
-    .redirect("/");
 };
 
 export { healthCheck, signup, signin };
