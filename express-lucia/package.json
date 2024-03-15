@@ -4,10 +4,9 @@
   "description": "Research on the lucia auth to an express application",
   "main": "dist/app.js",
   "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/app.js",
-    "dev": "nodemon src/app.ts"
+    "dev": "tsx watch ./src/app.ts"
   },
+  "type": "module",
   "author": "AmChrisKE",
   "license": "MIT",
   "keywords": [
@@ -35,6 +34,7 @@
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "tslib": "^2.6.2",
+    "tsx": "^4.7.1",
     "typescript": "^5.4.2"
   }
 }

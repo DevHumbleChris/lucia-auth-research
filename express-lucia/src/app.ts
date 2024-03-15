@@ -1,4 +1,3 @@
-require("dotenv").config();
 import dotenv from "dotenv";
 import express, { Express } from "express";
 import cors from "cors";
@@ -9,7 +8,7 @@ import bodyParser from "body-parser";
 dotenv.config();
 
 // Router.
-import { router } from "./router";
+import { router } from "./router/index.js";
 
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
