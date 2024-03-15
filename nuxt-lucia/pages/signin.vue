@@ -1,138 +1,159 @@
-<script lang="ts"></script>
+<script lang="ts" setup></script>
 
 <template>
-  <div class="m-auto xl:container px-12 sm:px-0 mx-auto">
-    <div class="mx-auto h-full sm:w-max">
-      <div class="m-auto py-12">
-        <div class="space-y-4">
-          <a href="">
-            <img
-              src="https://tailus.io/sources/blocks/plus-social/preview/images/tailus.svg"
-              class="w-40 dark:hidden"
-              alt="tailus logo"
+  <section class="py-12">
+    <div class="mx-auto max-w-7xl">
+      <div
+        class="max-w-sm mx-auto bg-white border p-5 rounded-xl shadow drop-shadow-md"
+      >
+        <div class="text-center">
+          <svg
+            class="w-auto h-20 mx-auto"
+            viewBox="0 0 1985 1038"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1149.67 395.986C1305.68 260.813 1721.95 647.12 1519.35 822.653C1491.59 846.72 1461.55 858.64 1430.8 861.066C1364.01 769.52 1269.27 699.706 1159.08 664.186C1102.51 563.906 1085.32 451.733 1149.67 395.986Z"
+              fill="#0D100D"
             />
-            <img
-              src="https://tailus.io/sources/blocks/plus-social/preview/images/logo.svg"
-              class="w-40 hidden dark:block"
-              alt="tailus logo"
+            <path
+              d="M835.667 395.986C679.653 260.813 263.387 647.12 465.987 822.653C493.747 846.72 523.773 858.64 554.533 861.066C621.307 769.52 716.08 699.706 826.254 664.186C882.827 563.92 900.013 451.733 835.667 395.986Z"
+              fill="#100F0D"
             />
-          </a>
+            <path
+              d="M316.08 0.586299C141.8 0.586299 0.506836 141.866 0.506836 316.159C0.506836 447.386 80.6402 559.893 194.627 607.479C211.294 577.746 229.974 549.053 250.56 521.6C185.814 485.92 143.12 415.906 146.12 337C150.36 225.586 244.12 138.693 355.547 142.933C441.08 146.173 512.12 202.2 538.613 278.453C565.613 264.213 593.507 251.199 622.24 239.493C587.987 102.266 463.92 0.586299 316.08 0.586299Z"
+              fill="#100F0D"
+            />
+            <path
+              d="M353.16 196.587C271.867 193.493 203.467 256.88 200.373 338.173C198.04 399.493 233.546 453.467 286.013 477.613C343.373 411.333 412.24 353.36 489.973 306.04C473.84 245.067 419.453 199.107 353.16 196.587Z"
+              fill="#100F0D"
+            />
+            <path
+              d="M1299.47 452.293C1344.97 452.293 1381.85 489.173 1381.85 534.68C1381.85 580.186 1344.97 617.066 1299.47 617.066C1253.96 617.066 1217.08 580.186 1217.08 534.68C1217.08 489.173 1253.96 452.293 1299.47 452.293Z"
+              fill="white"
+            />
+            <path
+              d="M1253.25 480.413C1298.76 480.413 1335.64 517.293 1335.64 562.8C1335.64 608.306 1298.76 645.187 1253.25 645.187C1207.75 645.187 1170.87 608.306 1170.87 562.8C1170.87 517.293 1207.75 480.413 1253.25 480.413Z"
+              fill="#100F0D"
+            />
+            <path
+              d="M1669.25 0.586299C1843.53 0.586299 1984.83 141.866 1984.83 316.159C1984.83 447.386 1904.69 559.893 1790.71 607.479C1774.04 577.746 1755.36 549.053 1734.77 521.6C1799.52 485.92 1842.21 415.906 1839.21 337C1834.97 225.586 1741.21 138.693 1629.79 142.933C1544.25 146.173 1473.21 202.2 1446.72 278.453C1419.72 264.213 1391.83 251.199 1363.09 239.493C1397.35 102.266 1521.41 0.586299 1669.25 0.586299Z"
+              fill="#100F0D"
+            />
+            <path
+              d="M1632.17 196.587C1713.47 193.493 1781.87 256.88 1784.96 338.173C1787.29 399.493 1751.79 453.466 1699.32 477.626C1641.96 411.346 1573.09 353.36 1495.36 306.04C1511.49 245.067 1565.88 199.107 1632.17 196.587Z"
+              fill="#100F0D"
+            />
+            <path
+              d="M685.867 452.293C731.374 452.293 768.254 489.173 768.254 534.68C768.254 580.186 731.374 617.066 685.867 617.066C640.361 617.066 603.48 580.186 603.48 534.68C603.48 489.173 640.361 452.293 685.867 452.293Z"
+              fill="white"
+            />
+            <path
+              d="M732.08 480.413C777.587 480.413 814.467 517.293 814.467 562.8C814.467 608.306 777.587 645.187 732.08 645.187C686.573 645.187 649.693 608.306 649.693 562.8C649.693 517.293 686.573 480.413 732.08 480.413Z"
+              fill="#100F0D"
+            />
+            <path
+              d="M992.667 785.693C1071.81 785.693 1135.97 818.747 1135.97 859.52C1135.97 895.453 1086.13 925.387 1020.13 931.987C1031.33 958.12 1079.2 1046.17 1189.56 980.013C1151.15 1047.87 1043.01 1054.55 992.667 1003.71C942.32 1054.55 834.187 1047.87 795.773 980.013C906.133 1046.17 954 958.12 965.2 931.987C899.2 925.387 849.36 895.453 849.36 859.52C849.36 818.747 913.52 785.693 992.667 785.693Z"
+              fill="#100F0D"
+            />
+          </svg>
+          <h1 class="mt-2 text-2xl font-bold text-gray-900">
+            Login to Montana Inc.
+          </h1>
         </div>
-        <div
-          class="mt-12 rounded-3xl border bg-gray-50 dark:border-gray-700 dark:bg-gray-800 -mx-6 sm:-mx-10 p-8 sm:p-10"
-        >
-          <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
-            Login to your account
-          </h3>
-          <div class="mt-12 flex flex-wrap sm:grid gap-6 grid-cols-2">
-            <button
-              class="w-full h-11 rounded-full border border-gray-300/75 bg-white px-6 transition active:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:border-gray-700"
-            >
-              <div
-                class="w-max mx-auto flex items-center justify-center space-x-4"
-              >
-                <img
-                  src="https://tailus.io/sources/blocks/plus-social/preview/images/google.svg"
-                  class="w-5"
-                  alt=""
-                />
-                <span
-                  class="block w-max text-sm font-semibold tracking-wide text-cyan-700 dark:text-white"
-                  >With Google</span
-                >
-              </div>
-            </button>
-            <button
-              class="w-full h-11 rounded-full bg-gray-900 px-6 transition hover:bg-gray-800 focus:bg-gray-700 active:bg-gray-600 dark:bg-gray-700 dark:border dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:border-gray-700"
-            >
-              <div
-                class="w-max mx-auto flex items-center justify-center space-x-4 text-white"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  class="w-5"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-                  />
-                </svg>
-                <span
-                  class="block w-max text-sm font-semibold tracking-wide text-white"
-                  >With Github</span
-                >
-              </div>
-            </button>
+
+        <div class="mt-6">
+          <button
+            type="button"
+            class="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <img
+              class="w-5 h-5 mr-2"
+              src="https://landingfoliocom.imgix.net/store/collection/clarity-dashboard/images/previews/sign-in/1/google-logo.svg"
+              alt=""
+            />
+            Sign in with Google
+          </button>
+        </div>
+
+        <div class="relative mt-4">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-200"></div>
           </div>
 
-          <form action="" class="mt-10 space-y-8 dark:text-white">
+          <div class="relative flex justify-center">
+            <span class="px-2 text-sm text-gray-400 bg-white"> or </span>
+          </div>
+        </div>
+
+        <form action="#" method="POST" class="mt-2">
+          <div class="space-y-3">
             <div>
-              <div
-                class="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300"
-              >
+              <label for="" class="text-sm font-bold text-gray-900">
+                Email
+              </label>
+              <div class="mt-2">
                 <input
-                  id=""
                   type="email"
-                  placeholder="Your email or user name"
-                  class="w-full bg-transparent pb-3 border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none invalid:border-red-400 transition"
+                  name=""
+                  id=""
+                  placeholder="Email address"
+                  value=""
+                  class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
                 />
               </div>
             </div>
 
-            <div class="flex flex-col items-end">
-              <div
-                class="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300"
-              >
+            <div>
+              <div class="flex items-center justify-between">
+                <label for="" class="text-sm font-bold text-gray-900">
+                  Password
+                </label>
+
+                <a
+                  href="#"
+                  title=""
+                  class="text-sm font-medium text-indigo-600 hover:text-indigo-700"
+                >
+                  Forgot Password?
+                </a>
+              </div>
+              <div class="mt-2">
                 <input
+                  type="password"
+                  name=""
                   id=""
-                  type="Your password"
-                  placeholder="Your answer"
-                  class="w-full bg-transparent pb-3 border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none invalid:border-red-400 transition"
+                  placeholder="Password (min. 8 character)"
+                  value=""
+                  class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
                 />
               </div>
-              <button type="reset" class="-mr-3 w-max p-3">
-                <span
-                  class="text-sm tracking-wide text-sky-600 dark:text-sky-400"
-                  >Forgot password ?</span
-                >
-              </button>
             </div>
 
             <div>
               <button
-                class="w-full rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800"
+                type="submit"
+                class="inline-flex items-center gap-2 justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 hover:bg-indigo-500"
               >
                 <span
-                  class="text-base font-semibold text-white dark:text-gray-900"
-                  >Login</span
-                >
-              </button>
-              <button href="#" type="reset" class="-ml-3 w-max p-3">
-                <span
-                  class="text-sm tracking-wide text-sky-600 dark:text-sky-400"
-                  >Create new account</span
-                >
+                  class="w-4 h-4 border-2 rounded-full border-dashed animate-spin border-white"
+                ></span>
+                Sign in
               </button>
             </div>
-          </form>
-        </div>
-        <div class="border-t pt-12 text-gray-500 dark:border-gray-800">
-          <div class="space-x-4 text-center">
-            <span>&copy; Tailus</span>
-            <a
-              href="#"
-              class="text-sm hover:text-sky-900 dark:hover:text-gray-300"
-              >Contact</a
-            >
-            <a
-              href="#"
-              class="text-sm hover:text-sky-900 dark:hover:text-gray-300"
-              >Privacy & Terms</a
-            >
           </div>
+        </form>
+
+        <div class="mt-4 text-center">
+          <p class="text-sm font-medium text-gray-900">
+            Don't have an account?
+            <NuxtLink to="/signup" title="" class="font-bold hover:underline">
+              Sign up now
+            </NuxtLink>
+          </p>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
