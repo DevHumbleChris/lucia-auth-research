@@ -1,10 +1,33 @@
 <script lang="ts" setup>
+import { toast } from "vue3-toastify";
+
+useHead({
+  titleTemplate: "%s - Signup",
+});
+
 const email = useState("newEmail", () => "");
 const password = useState("newPassword", () => "");
 const isCreatingAccount = useState("isCreatingAccount", () => false);
 
-const handleUserSignup = () => {
-  console.log("Hello");
+const handleUserSignup = async () => {
+  isCreatingAccount.value = true;
+  try {
+    await $fetch("/api/signup", {
+      method: "POST",
+      body: {
+        email: email.value,
+        password: password.value,
+      },
+    });
+    isCreatingAccount.value = false;
+    await navigateTo("/");
+  } catch (err: any) {
+    isCreatingAccount.value = false;
+    const errorMessage = err.data?.message ?? null;
+    toast.error(errorMessage, {
+      theme: "colored",
+    });
+  }
 };
 </script>
 

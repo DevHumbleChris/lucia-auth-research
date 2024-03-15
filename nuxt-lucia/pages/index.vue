@@ -3,6 +3,10 @@ definePageMeta({
   middleware: ["protected"],
 });
 
+useHead({
+  titleTemplate: "%s - Homepage",
+});
+
 const user = useAuthenticatedUser();
 </script>
 

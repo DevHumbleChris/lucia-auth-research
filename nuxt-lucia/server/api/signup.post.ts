@@ -2,6 +2,7 @@ import { Argon2id } from "oslo/password";
 import { generateId } from "lucia";
 import { prisma } from "~/prisma/db";
 import { isValidEmail } from "../utils/validation";
+import { lucia } from "../utils/auth";
 
 export default eventHandler(async (event) => {
   const { email, password } = await readBody(event);
@@ -27,26 +28,39 @@ export default eventHandler(async (event) => {
   const hashedPassword = await new Argon2id().hash(password);
   const userId = generateId(15);
 
-  const user = await prisma.user.create({
-    data: {
-      id: userId,
-      email,
-      password: hashedPassword,
-    },
-  });
+  try {
+    // Check if user exists
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
 
-  // Check if Email exists.
-  if (user.email) {
+    if (user) {
+      throw createError({
+        message: "Email already used",
+        statusCode: 400,
+      });
+    }
+
+    await prisma.user.create({
+      data: {
+        id: userId,
+        email,
+        password: hashedPassword,
+      },
+    });
+
+    const session = await lucia.createSession(userId, {});
+    appendHeader(
+      event,
+      "Set-Cookie",
+      lucia.createSessionCookie(session.id).serialize()
+    );
+  } catch (error: any) {
     throw createError({
-      message: "Email already used",
+      message: error.message,
       statusCode: 400,
     });
   }
-
-  const session = await lucia.createSession(userId, {});
-  appendHeader(
-    event,
-    "Set-Cookie",
-    lucia.createSessionCookie(session.id).serialize()
-  );
 });

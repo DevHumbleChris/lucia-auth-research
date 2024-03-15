@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+useHead({
+  titleTemplate: "%s - Signin",
+});
+</script>
 
 <template>
   <section class="py-12">
