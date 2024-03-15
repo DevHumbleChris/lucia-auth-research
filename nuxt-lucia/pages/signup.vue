@@ -5,6 +5,19 @@ useHead({
   titleTemplate: "%s - Signup",
 });
 
+const user = useUser();
+
+watch(
+  user,
+  () => {
+    if (user.value) {
+      // Redirect to protected page
+      return navigateTo("/");
+    }
+  },
+  { immediate: true }
+);
+
 const email = useState("newEmail", () => "");
 const password = useState("newPassword", () => "");
 const isCreatingAccount = useState("isCreatingAccount", () => false);

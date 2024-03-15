@@ -2,6 +2,18 @@
 useHead({
   titleTemplate: "%s - Signin",
 });
+const user = useUser();
+
+watch(
+  user,
+  () => {
+    if (user.value) {
+      // Redirect to protected page
+      return navigateTo("/");
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
