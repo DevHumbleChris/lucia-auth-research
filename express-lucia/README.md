@@ -1,14 +1,14 @@
-# Nuxt.js with Lucia Auth
+# Express with Lucia Auth
 
-This directory contains research and implementation of Lucia auth in a Nuxt.js application.
+This directory contains research and implementation of Lucia auth in an Express.js application.
 
 ## Introduction
 
-Lucia is an authentication library for your server that abstracts away the complexity of handling sessions. It works alongside your database to provide an API that's easy to use, understand, and extend. This research aims to explore the integration of Lucia auth into a Nuxt.js application.
+Lucia is an authentication library for your server that abstracts away the complexity of handling sessions. It works alongside your database to provide an API that's easy to use, understand, and extend. This research aims to explore the integration of Lucia auth into an Express.js application.
 
 ## Getting Started
 
-To get started with Lucia auth in your Nuxt.js project, follow the instructions below:
+To get started with Lucia auth in your Express.js project, follow the instructions below:
 
 1. Clone this repository:
 
@@ -16,10 +16,10 @@ To get started with Lucia auth in your Nuxt.js project, follow the instructions 
    git clone https://github.com/DevHumbleChris/lucia-auth-research.git
    ```
 
-2. Navigate to the `nuxt-lucia` directory:
+2. Navigate to the `express-lucia` directory:
 
    ```bash
-   cd nuxt-lucia
+   cd express-lucia
    ```
 
 3. Install dependencies:
@@ -28,21 +28,20 @@ To get started with Lucia auth in your Nuxt.js project, follow the instructions 
    npm install
    ```
 
-4. Start the Nuxt.js server:
+4. Start the Express server:
 
    ```bash
-   npm run dev
+   npm start
    ```
 
 5. Open your browser and navigate to `http://localhost:3000` to view the application.
 
 ## Directory Structure
 
-- `pages/`: Contains the pages of the Nuxt.js application.
-  - `index.vue`: Main page of the application.
-  - Other pages as needed.
-
-- `nuxt.config.ts`: Nuxt.js configuration file, including plugins and modules.
+- `src/`: Contains the source code of the Express.js application.
+  - `app.ts`: Entry point of the Express application.
+  - `auth.ts`: Implementation of Lucia auth.
+- `prisma` prisma settings.
 
 - `package.json`: Node.js package configuration file, including dependencies and scripts.
 
