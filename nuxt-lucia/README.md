@@ -45,6 +45,84 @@ To get started with Lucia auth in your Nuxt.js project, follow the instructions 
 - `nuxt.config.ts`: Nuxt.js configuration file, including plugins and modules.
 
 - `package.json`: Node.js package configuration file, including dependencies and scripts.
+- `prisma/`: Contains the prisma ORM settings for the application.
+  - `db.ts`: Prisma Client configuration file for the application.
+  - `schema.prisma` Contains Database Setup and Schema.
+
+   ```typescript
+   generator client {
+      provider = "prisma-client-js"
+   }
+
+   datasource db {
+      provider = "mysql"
+      url      = env("DATABASE_URL")
+   }
+
+   model User {
+      id           String        @id
+      email        String?
+      password String?
+      oauthAccount OauthAccount?
+      sessions     Session[]
+      createdAt    DateTime      @default(now())
+      updatedAt    DateTime      @updatedAt
+   }
+
+   model OauthAccount {
+      providerId     String
+      providerUserId String
+      userId         String?  @unique
+      user           User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+      createdAt      DateTime @default(now())
+      updatedAt      DateTime @updatedAt
+
+      @@unique([providerId, providerUserId])
+      @@map("oauth_account")
+   }
+
+   model Session {
+      id        String   @id
+      userId    String
+      expiresAt DateTime
+      user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+      createdAt DateTime @default(now())
+      updatedAt DateTime @updatedAt
+   }
+
+   ```
+
+## Schema.prisma
+
+### User Model
+
+- `id`: A unique identifier for each user, defined as a String and marked with `@id`.
+- `email`: A field to store the user's email address, marked with `String?` to indicate it's optional.
+- `password`: A field to store the hashed password of the user, also marked as optional (`String?`).
+- `oauthAccount`: A reference to the `OauthAccount` model, allowing users to have an associated OAuth account.
+- `sessions`: An array of `Session` objects representing the sessions associated with the user.
+- `createdAt`: A DateTime field marking when the user was created, with a default value set to the current timestamp using `@default(now())`.
+- `updatedAt`: A DateTime field marking the last time the user object was updated, automatically updated with the current timestamp using `@updatedAt`.
+
+### OauthAccount Model
+
+- `providerId`: A field to store the OAuth provider's ID for the account.
+- `providerUserId`: A field to store the user's ID provided by the OAuth provider.
+- `userId`: A reference to the associated user's ID, marked as optional (`String?`) and unique (`@unique`) to ensure each user has at most one OAuth account.
+- `user`: A reference to the `User` model, establishing a relationship between `User` and `OauthAccount` models. It's marked with `@relation` to specify the fields involved in the relationship, and `onDelete: Cascade` to specify that if the user is deleted, associated OAuth accounts should also be deleted.
+- `createdAt`: A DateTime field marking when the OAuth account was created, with a default value set to the current timestamp using `@default(now())`.
+- `updatedAt`: A DateTime field marking the last time the OAuth account was updated, automatically updated with the current timestamp using `@updatedAt`.
+- `@@unique([providerId, providerUserId])`: Specifies a unique constraint ensuring that the combination of `providerId` and `providerUserId` is unique across all OAuth accounts.
+- `@@map("oauth_account")`: Maps the model to a specific database table named "oauth_account".
+
+### Session Model
+
+- `id`: A unique identifier for each session.
+- `userId`: A field to store the ID of the associated user.
+- `expiresAt`: A DateTime field indicating when the session expires.
+- `user`: A reference to the associated user, establishing a relationship between `Session` and `User` models.
+- `createdAt`: A DateTime field marking when the session was created, with a default value set to the current timestamp using `@default(now())`.
+- `updatedAt`: A DateTime field marking the last time the session was updated, automatically updated with the current timestamp using `@updatedAt`.
 
 ## Contributing
 
