@@ -3,6 +3,8 @@ useHead({
   titleTemplate: "%s - Signin",
 });
 const user = useUser();
+const email = useState("email", () => "");
+const password = useState("password", () => "");
 
 watch(
   user,

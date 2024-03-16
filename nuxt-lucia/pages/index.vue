@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { toast } from "vue3-toastify";
+
 definePageMeta({
   middleware: ["protected"],
 });
@@ -8,6 +10,28 @@ useHead({
 });
 
 const user = useAuthenticatedUser();
+const isLoggingOut = useState("isLoggingOut", () => false);
+
+const handleUserLogout = async () => {
+  isLoggingOut.value = true;
+  try {
+    await $fetch("/api/signout", {
+      method: "POST",
+    });
+
+    toast.success("Successfully, sign out!", {
+      theme: "colored",
+    });
+    isLoggingOut.value = false;
+    return await navigateTo("/signin");
+  } catch (error: any) {
+    isLoggingOut.value = false;
+    const errorMessage = error.data?.message ?? null;
+    toast.error(errorMessage, {
+      theme: "colored",
+    });
+  }
+};
 </script>
 
 <template>
@@ -174,12 +198,13 @@ const user = useAuthenticatedUser();
       >
         <div>
           <p class="text-sm text-gray-500 dark:text-neutral-500">
-            57 connections
+            <span class="text-indigo-600">id:</span> {{ user.id }}
           </p>
         </div>
         <div>
           <button
-            for="sign-out"
+            @click="handleUserLogout"
+            type="button"
             class="relative bg-indigo-600 hover:bg-indigo-500 flex items-center gap-2 py-2 px-3 w-full sm:w-auto text-center sm:text-start rounded-lg cursor-pointer text-sm font-medium focus:outline-none"
           >
             <svg
