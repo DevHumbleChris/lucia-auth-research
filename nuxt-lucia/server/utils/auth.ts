@@ -1,5 +1,6 @@
 import { Lucia } from "lucia";
-
+import { GitHub } from "arctic";
+import { prisma } from "~/prisma/db";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
 
@@ -41,3 +42,10 @@ interface OauthAccount {
   providerUserId: string;
   userId?: string;
 }
+
+const config = useRuntimeConfig();
+
+export const github = new GitHub(
+  config.githubClientId,
+  config.githubClientSecret
+);

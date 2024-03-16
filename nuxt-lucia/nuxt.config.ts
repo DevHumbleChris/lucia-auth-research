@@ -15,4 +15,8 @@ export default defineNuxtConfig({
     configPath: "tailwind.config",
     viewer: true,
   },
+  runtimeConfig: {
+    githubClientId: process.env.GITHUB_CLIENT_ID,
+    githubClientSecret: process.env.GGITHUB_CLIENT_SECRET,
+  },
 });

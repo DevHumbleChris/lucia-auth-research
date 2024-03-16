@@ -1,6 +1,6 @@
 import { Argon2id } from "oslo/password";
 import { prisma } from "~/prisma/db";
-import { isValidEmail } from "../utils/validation";
+import { isValidEmail } from "#imports";
 
 export default eventHandler(async (event) => {
   const { email, password } = await readBody(event);
