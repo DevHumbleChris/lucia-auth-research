@@ -51,7 +51,7 @@ export const github = new GitHub(
 );
 
 export const google = new Google(
-  config.githubClientId,
-  config.githubClientSecret,
+  config.googleClientId,
+  config.googleClientSecret,
   config.googleRedirect
 );
