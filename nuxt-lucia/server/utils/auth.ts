@@ -51,8 +51,6 @@ export const github = new GitHub(
   config.githubClientSecret
 );
 
-console.log(config.googleRedirect);
-
 export const google = new Google(
   config.googleClientId,
   config.googleClientSecret,
