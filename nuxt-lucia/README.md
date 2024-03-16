@@ -42,9 +42,6 @@ To get started with Lucia auth in your Nuxt.js project, follow the instructions 
   - `index.vue`: Main page of the application.
   - Other pages as needed.
 
-- `nuxt.config.ts`: Nuxt.js configuration file, including plugins and modules.
-
-- `package.json`: Node.js package configuration file, including dependencies and scripts.
 - `prisma/`: Contains the prisma ORM settings for the application.
   - `db.ts`: Prisma Client configuration file for the application.
   - `schema.prisma` Contains Database Setup and Schema.
@@ -91,6 +88,17 @@ To get started with Lucia auth in your Nuxt.js project, follow the instructions 
    }
 
    ```
+
+- `server/utils/auth.ts`: Lucia Auth Setup configuration file for the application file.
+
+- `server/api/`: Contains the REST API of the Nuxt.js application.
+  - `signin.post.ts`:  `/api/signin` signin API POST request to sign in users to the application.
+  - `signup.post.ts`:  `/api/signup` signup API POST request to create account for the users of the application.
+  - `signout.post.ts`:  `/api/signout` signout API POST request to sign out users in the application.
+
+- `nuxt.config.ts`: Nuxt.js configuration file, including plugins and modules.
+
+- `package.json`: Node.js package configuration file, including dependencies and scripts.
 
 ## Schema.prisma
 
