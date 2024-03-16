@@ -25,7 +25,7 @@ export default eventHandler(async (event) => {
 
   try {
     // Check if user exists
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: {
         email,
       },
@@ -38,7 +38,10 @@ export default eventHandler(async (event) => {
       });
     }
 
-    const validPassword = await new Argon2id().verify(user.password, password);
+    const validPassword = await new Argon2id().verify(
+      user.password as string,
+      password
+    );
 
     if (!validPassword) {
       throw createError({
