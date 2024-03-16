@@ -1,7 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "nuxt-og-image"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/google-fonts",
+    "nuxt-og-image",
+    "nuxt-icon",
+  ],
   googleFonts: {
     families: {
       "Noto Sans": {
@@ -17,6 +22,6 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     githubClientId: process.env.GITHUB_CLIENT_ID,
-    githubClientSecret: process.env.GGITHUB_CLIENT_SECRET,
+    githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
   },
 });

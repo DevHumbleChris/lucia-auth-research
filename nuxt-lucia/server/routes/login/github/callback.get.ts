@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
       where: {
         oauthAccount: {
           providerId: "github",
-          providerUserId: githubUser.id,
+          providerUserId: githubUser.id.toString(),
         },
       },
     });
@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
         oauthAccount: {
           create: {
             providerId: "github",
-            providerUserId: githubUser.id,
+            providerUserId: githubUser.id.toString(),
           },
         },
       },
@@ -63,6 +63,7 @@ export default defineEventHandler(async (event) => {
     );
     return sendRedirect(event, "/");
   } catch (e) {
+    console.log(e);
     if (
       e instanceof OAuth2RequestError &&
       e.message === "bad_verification_code"
@@ -79,5 +80,5 @@ export default defineEventHandler(async (event) => {
 });
 
 interface GitHubUser {
-  id: string;
+  id: number;
 }

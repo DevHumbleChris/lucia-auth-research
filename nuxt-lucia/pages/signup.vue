@@ -1,17 +1,12 @@
 <script lang="ts" setup>
 import { toast } from "vue3-toastify";
 
-useHead({
-  titleTemplate: "%s - Signup",
+definePageMeta({
+  middleware: ["isauthenticated"],
 });
 
-const user = useUser();
-
-watch(user, () => {
-  if (user.value) {
-    // Redirect to protected page
-    return navigateTo("/");
-  }
+useHead({
+  titleTemplate: "%s - Signup",
 });
 
 const email = useState("newEmail", () => "");
@@ -110,12 +105,8 @@ const handleUserSignup = async () => {
             type="button"
             class="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900"
           >
-            <img
-              class="w-5 h-5 mr-2"
-              src="https://landingfoliocom.imgix.net/store/collection/clarity-dashboard/images/previews/sign-in/1/google-logo.svg"
-              alt=""
-            />
-            Sign up with Google
+            <Icon name="octicon:mark-github-16" class="w-5 h-5 mr-2" />
+            Sign up with Github
           </button>
         </div>
 
