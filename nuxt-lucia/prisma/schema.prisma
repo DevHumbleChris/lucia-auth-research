@@ -14,12 +14,25 @@ datasource db {
 }
 
 model User {
-  id        String    @id
-  email     String    @unique
-  password  String
-  sessions  Session[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id           String        @id
+  email        String?
+  passwordHash String?
+  oauthAccount OauthAccount?
+  sessions     Session[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model OauthAccount {
+  providerId     String
+  providerUserId String
+  userId         String?  @unique
+  user           User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([providerId, providerUserId])
+  @@map("oauth_account")
 }
 
 model Session {
@@ -27,4 +40,6 @@ model Session {
   userId    String
   expiresAt DateTime
   user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

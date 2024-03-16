@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Toaster } from "vue-sonner";
 useHead({
   htmlAttrs: {
     lang: "en",
@@ -39,6 +38,5 @@ defineOgImageComponent("Nuxt", {
 <template>
   <main class="max-w-[90rem] mx-auto">
     <slot />
-    <Toaster richColors closeButton />
   </main>
 </template>
