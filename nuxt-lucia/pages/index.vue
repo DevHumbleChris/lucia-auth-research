@@ -11,6 +11,7 @@ useHead({
 
 const user = useAuthenticatedUser();
 const isLoggingOut = useState("isLoggingOut", () => false);
+const globalUser = useUser();
 
 const handleUserLogout = async () => {
   isLoggingOut.value = true;
@@ -18,8 +19,12 @@ const handleUserLogout = async () => {
     await $fetch("/api/signout", {
       method: "POST",
     });
-    isLoggingOut.value = false;
-    return await navigateTo("/signin");
+    const data = await useRequestFetch()("/api/user");
+
+    if (!data) {
+      globalUser.value = null;
+      return await navigateTo("/signin");
+    }
   } catch (error: any) {
     isLoggingOut.value = false;
     const errorMessage = error.data?.message ?? null;

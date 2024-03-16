@@ -1,17 +1,25 @@
 <script lang="ts" setup>
 import { toast } from "vue3-toastify";
 
-definePageMeta({
-  middleware: ["isauthenticated"],
-});
-
 useHead({
   titleTemplate: "%s - Signin",
 });
-
+const user = useUser();
 const email = useState("email", () => "");
 const password = useState("password", () => "");
 const isLoggingIn = useState("isLoggingIn", () => false);
+
+watch(
+  user,
+  () => {
+    if (user.value) {
+      navigateTo("/");
+    }
+  },
+  {
+    immediate: true,
+  }
+);
 
 const handleUserSignin = async () => {
   isLoggingIn.value = true;

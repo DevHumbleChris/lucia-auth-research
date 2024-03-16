@@ -1,17 +1,27 @@
 <script lang="ts" setup>
 import { toast } from "vue3-toastify";
 
-definePageMeta({
-  middleware: ["isauthenticated"],
-});
-
 useHead({
   titleTemplate: "%s - Signup",
 });
 
+const user = useUser();
+
 const email = useState("newEmail", () => "");
 const password = useState("newPassword", () => "");
 const isCreatingAccount = useState("isCreatingAccount", () => false);
+
+watch(
+  user,
+  () => {
+    if (user.value) {
+      navigateTo("/");
+    }
+  },
+  {
+    immediate: true,
+  }
+);
 
 const handleUserSignup = async () => {
   isCreatingAccount.value = true;
