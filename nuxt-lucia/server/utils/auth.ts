@@ -16,7 +16,9 @@ export const lucia = new Lucia(adapter, {
   getUserAttributes: (attributes) => {
     return {
       // we don't need to expose the hashed password!
+      id: attributes.id,
       email: attributes.email,
+      oauthAccount: attributes.oauthAccount,
     };
   },
 });
@@ -24,12 +26,18 @@ export const lucia = new Lucia(adapter, {
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
-    DatabaseUserAttributes: {
-      email: string;
-    };
+    DatabaseUserAttributes: DatabaseUserAttributes;
   }
 }
 
 interface DatabaseUserAttributes {
-  username: string;
+  id: string;
+  email?: string;
+  oauthAccount?: OauthAccount;
+}
+
+interface OauthAccount {
+  providerId: string;
+  providerUserId: string;
+  userId?: string;
 }
