@@ -29,9 +29,6 @@ dependencies:
   vue-router:
     specifier: ^4.3.0
     version: 4.3.0(vue@3.4.21)
-  vue-sonner:
-    specifier: ^1.1.2
-    version: 1.1.2
   vue3-toastify:
     specifier: ^0.2.1
     version: 0.2.1(vue@3.4.21)
@@ -8754,10 +8751,6 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.6.1
       vue: 3.4.21
-
-  /vue-sonner@1.1.2:
-    resolution: {integrity: sha512-yg4f5s0a3oiiI7cNvO0Dajux1Y7s04lxww3vnQtnwQawJ3KqaKA9RIRMdI9wGTosRGIOwgYFniFRGl4+IuKPZw==}
-    dev: false
 
   /vue3-toastify@0.2.1(vue@3.4.21):
     resolution: {integrity: sha512-u4i5LCu1q5qs4L4Kbjb4u8NipCS8ox1fCHQ6XFS62676xnA6Q/AJRpZEkAurTMp723LeH6eQX6k9+24bKf1T4Q==}

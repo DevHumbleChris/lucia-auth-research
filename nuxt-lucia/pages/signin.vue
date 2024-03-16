@@ -1,21 +1,43 @@
 <script lang="ts" setup>
+import { toast } from "vue3-toastify";
+
 useHead({
   titleTemplate: "%s - Signin",
 });
 const user = useUser();
 const email = useState("email", () => "");
 const password = useState("password", () => "");
+const isLoggingIn = useState("isLoggingIn", () => false);
 
-watch(
-  user,
-  () => {
-    if (user.value) {
-      // Redirect to protected page
-      return navigateTo("/");
-    }
-  },
-  { immediate: true }
-);
+const handleUserSignin = async () => {
+  isLoggingIn.value = true;
+  try {
+    await $fetch("/api/signin", {
+      method: "POST",
+      body: {
+        email: email.value,
+        password: password.value,
+      },
+    });
+    isLoggingIn.value = false;
+    email.value = "";
+    password.value = "";
+    await navigateTo("/");
+  } catch (error: any) {
+    isLoggingIn.value = false;
+    const errorMessage = error.data?.message ?? null;
+    toast.error(errorMessage, {
+      theme: "colored",
+    });
+  }
+};
+
+watch(user, () => {
+  if (user.value) {
+    // Redirect to protected page
+    return navigateTo("/");
+  }
+});
 </script>
 
 <template>
@@ -105,19 +127,20 @@ watch(
           </div>
         </div>
 
-        <form action="#" method="POST" class="mt-2">
+        <form @submit.prevent="handleUserSignin" class="mt-2">
           <div class="space-y-3">
             <div>
-              <label for="" class="text-sm font-bold text-gray-900">
+              <label for="email" class="text-sm font-bold text-gray-900">
                 Email
               </label>
               <div class="mt-2">
                 <input
                   type="email"
-                  name=""
-                  id=""
+                  name="email"
+                  id="email"
                   placeholder="Email address"
-                  value=""
+                  v-model="email"
+                  required
                   class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
                 />
               </div>
@@ -125,25 +148,18 @@ watch(
 
             <div>
               <div class="flex items-center justify-between">
-                <label for="" class="text-sm font-bold text-gray-900">
+                <label for="password" class="text-sm font-bold text-gray-900">
                   Password
                 </label>
-
-                <a
-                  href="#"
-                  title=""
-                  class="text-sm font-medium text-indigo-600 hover:text-indigo-700"
-                >
-                  Forgot Password?
-                </a>
               </div>
               <div class="mt-2">
                 <input
                   type="password"
-                  name=""
-                  id=""
-                  placeholder="Password (min. 8 character)"
-                  value=""
+                  name="password"
+                  id="password"
+                  placeholder="Password (min. 6 character)"
+                  v-model="password"
+                  required
                   class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
                 />
               </div>
@@ -155,9 +171,10 @@ watch(
                 class="inline-flex items-center gap-2 justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 hover:bg-indigo-500"
               >
                 <span
+                  v-if="isLoggingIn"
                   class="w-4 h-4 border-2 rounded-full border-dashed animate-spin border-white"
                 ></span>
-                Sign in
+                {{ isLoggingIn ? "Authenticating..." : "Sign in" }}
               </button>
             </div>
           </div>

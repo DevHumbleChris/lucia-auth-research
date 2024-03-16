@@ -7,16 +7,12 @@ useHead({
 
 const user = useUser();
 
-watch(
-  user,
-  () => {
-    if (user.value) {
-      // Redirect to protected page
-      return navigateTo("/");
-    }
-  },
-  { immediate: true }
-);
+watch(user, () => {
+  if (user.value) {
+    // Redirect to protected page
+    return navigateTo("/");
+  }
+});
 
 const email = useState("newEmail", () => "");
 const password = useState("newPassword", () => "");
@@ -33,6 +29,8 @@ const handleUserSignup = async () => {
       },
     });
     isCreatingAccount.value = false;
+    email.value = "";
+    password.value = "";
     await navigateTo("/");
   } catch (err: any) {
     isCreatingAccount.value = false;
@@ -134,7 +132,7 @@ const handleUserSignup = async () => {
         <form @submit.prevent="handleUserSignup" class="mt-2">
           <div class="space-y-3">
             <div>
-              <label for="" class="text-sm font-bold text-gray-900">
+              <label for="email" class="text-sm font-bold text-gray-900">
                 Email
               </label>
               <div class="mt-2">
@@ -152,7 +150,7 @@ const handleUserSignup = async () => {
 
             <div>
               <div class="flex items-center justify-between">
-                <label for="" class="text-sm font-bold text-gray-900">
+                <label for="password" class="text-sm font-bold text-gray-900">
                   Password
                 </label>
               </div>
@@ -161,7 +159,7 @@ const handleUserSignup = async () => {
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="Password (min. 8 character)"
+                  placeholder="Password (min. 6 character)"
                   v-model="password"
                   class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
                   required
@@ -178,7 +176,7 @@ const handleUserSignup = async () => {
                   v-if="isCreatingAccount"
                   class="w-4 h-4 border-2 rounded-full border-dashed animate-spin border-white"
                 ></span>
-                Create Account
+                {{ isCreatingAccount ? "Creating..." : "Create Account" }}
               </button>
             </div>
           </div>

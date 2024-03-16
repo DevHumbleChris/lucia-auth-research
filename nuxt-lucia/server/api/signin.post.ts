@@ -7,7 +7,7 @@ export default eventHandler(async (event) => {
 
   if (!email || typeof email !== "string" || !isValidEmail(email)) {
     throw createError({
-      message: "Invalid email",
+      message: "Invalid Email",
       statusCode: 400,
     });
   }
@@ -18,38 +18,45 @@ export default eventHandler(async (event) => {
     password.length > 255
   ) {
     throw createError({
-      message: "Invalid password",
+      message: "Invalid Password Length",
       statusCode: 400,
     });
   }
 
-  // Check if user exists
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  try {
+    // Check if user exists
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
 
-  if (!user) {
+    if (!user) {
+      throw createError({
+        message: `${email}, Doesn't Exists`,
+        statusCode: 400,
+      });
+    }
+
+    const validPassword = await new Argon2id().verify(user.password, password);
+
+    if (!validPassword) {
+      throw createError({
+        message: "Incorrect Password",
+        statusCode: 400,
+      });
+    }
+
+    const session = await lucia.createSession(user.id, {});
+    appendHeader(
+      event,
+      "Set-Cookie",
+      lucia.createSessionCookie(session.id).serialize()
+    );
+  } catch (error: any) {
     throw createError({
-      message: `${email}, Doesn't Exists`,
+      message: error.message,
       statusCode: 400,
     });
   }
-
-  const validPassword = await new Argon2id().verify(user.password, password);
-
-  if (!validPassword) {
-    throw createError({
-      message: "Incorrect Password",
-      statusCode: 400,
-    });
-  }
-
-  const session = await lucia.createSession(user.id, {});
-  appendHeader(
-    event,
-    "Set-Cookie",
-    lucia.createSessionCookie(session.id).serialize()
-  );
 });

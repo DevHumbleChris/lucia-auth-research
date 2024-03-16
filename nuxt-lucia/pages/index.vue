@@ -18,10 +18,6 @@ const handleUserLogout = async () => {
     await $fetch("/api/signout", {
       method: "POST",
     });
-
-    toast.success("Successfully, sign out!", {
-      theme: "colored",
-    });
     isLoggingOut.value = false;
     return await navigateTo("/signin");
   } catch (error: any) {

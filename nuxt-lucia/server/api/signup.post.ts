@@ -9,7 +9,7 @@ export default eventHandler(async (event) => {
 
   if (!email || typeof email !== "string" || !isValidEmail(email)) {
     throw createError({
-      message: "Invalid email",
+      message: "Invalid Email",
       statusCode: 400,
     });
   }
@@ -20,7 +20,7 @@ export default eventHandler(async (event) => {
     password.length > 255
   ) {
     throw createError({
-      message: "Invalid password",
+      message: "Invalid Password Length",
       statusCode: 400,
     });
   }
