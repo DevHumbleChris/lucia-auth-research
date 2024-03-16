@@ -108,13 +108,27 @@ const handleUserSignin = async () => {
           </h1>
         </div>
 
-        <div class="mt-6">
+        <div class="mt-6 grid grid-cols-3 gap-2">
           <a
-            href="/sigin/github"
+            href="/signin/github"
             class="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900"
           >
-            <Icon name="octicon:mark-github-16" class="w-5 h-5 mr-2" />
-            Sign in with Github
+            <Icon name="octicon:mark-github-16" class="w-5 h-5 mr-2 shrink-0" />
+            Github
+          </a>
+          <a
+            href="/signin/google"
+            class="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <Icon name="logos:google-icon" class="w-5 h-5 mr-2 shrink-0" />
+            Google
+          </a>
+          <a
+            href="/signin/facebook"
+            class="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <Icon name="devicon:facebook" class="w-5 h-5 mr-2 shrink-0" />
+            Facebook
           </a>
         </div>
 

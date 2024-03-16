@@ -1,5 +1,5 @@
 import { Lucia } from "lucia";
-import { GitHub } from "arctic";
+import { GitHub, Google } from "arctic";
 import { prisma } from "~/prisma/db";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
@@ -48,4 +48,10 @@ const config = useRuntimeConfig();
 export const github = new GitHub(
   config.githubClientId,
   config.githubClientSecret
+);
+
+export const google = new Google(
+  config.githubClientId,
+  config.githubClientSecret,
+  config.googleRedirect
 );
