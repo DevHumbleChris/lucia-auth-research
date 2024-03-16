@@ -13,6 +13,9 @@ CREATE TABLE `User` (
 CREATE TABLE `oauth_account` (
     `providerId` VARCHAR(191) NOT NULL,
     `providerUserId` VARCHAR(191) NOT NULL,
+    `userEmail` VARCHAR(191) NOT NULL,
+    `userName` VARCHAR(191) NOT NULL,
+    `userAvatarURL` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,

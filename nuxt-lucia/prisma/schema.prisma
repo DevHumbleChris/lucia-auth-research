@@ -20,6 +20,9 @@ model User {
 model OauthAccount {
   providerId     String
   providerUserId String
+  userEmail      String
+  userName       String
+  userAvatarURL  String
   userId         String?  @unique
   user           User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt      DateTime @default(now())

@@ -3,11 +3,12 @@ import { generateId } from "lucia";
 import { prisma } from "~/prisma/db";
 
 export default defineEventHandler(async (event) => {
-  const codeVerifier = generateCodeVerifier();
   const query = getQuery(event);
   const code = query.code?.toString() ?? null;
   const state = query.state?.toString() ?? null;
   const storedState = getCookie(event, "google_oauth_state") ?? null;
+  const codeVerifier = getCookie(event, "code_verifier") ?? null;
+
   if (!code || !state || !storedState || state !== storedState) {
     throw createError({
       status: 400,
@@ -17,7 +18,7 @@ export default defineEventHandler(async (event) => {
   try {
     const tokens: GoogleTokens = await google.validateAuthorizationCode(
       code,
-      codeVerifier
+      codeVerifier as string
     );
 
     const googleUserResponse = await fetch(
@@ -30,13 +31,12 @@ export default defineEventHandler(async (event) => {
     );
 
     const googleUser: GoogleUser = await googleUserResponse.json();
-    console.log(googleUser);
 
     const existingUser = await prisma.user.findFirst({
       where: {
         oauthAccount: {
           providerId: "google",
-          providerUserId: googleUser.id.toString(),
+          providerUserId: googleUser.sub,
         },
       },
     });
@@ -59,7 +59,10 @@ export default defineEventHandler(async (event) => {
         oauthAccount: {
           create: {
             providerId: "google",
-            providerUserId: googleUser.id.toString(),
+            providerUserId: googleUser.sub,
+            userAvatarURL: googleUser.picture,
+            userEmail: googleUser.email,
+            userName: googleUser.name,
           },
         },
       },
@@ -72,7 +75,6 @@ export default defineEventHandler(async (event) => {
     );
     return sendRedirect(event, "/");
   } catch (e) {
-    console.log(e);
     if (
       e instanceof OAuth2RequestError &&
       e.message === "bad_verification_code"
@@ -89,5 +91,8 @@ export default defineEventHandler(async (event) => {
 });
 
 interface GoogleUser {
-  id: number;
+  sub: string;
+  name: string;
+  email: string;
+  picture: string;
 }

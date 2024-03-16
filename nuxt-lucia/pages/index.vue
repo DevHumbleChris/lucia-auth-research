@@ -10,6 +10,7 @@ useHead({
 });
 
 const user = useAuthenticatedUser();
+console.log(user.value);
 const isLoggingOut = useState("isLoggingOut", () => false);
 const globalUser = useUser();
 

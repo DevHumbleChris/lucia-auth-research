@@ -51,6 +51,9 @@ export default defineEventHandler(async (event) => {
           create: {
             providerId: "github",
             providerUserId: githubUser.id.toString(),
+            userAvatarURL: githubUser.avatar_url,
+            userEmail: githubUser.email ? githubUser.email : "",
+            userName: githubUser.login,
           },
         },
       },
@@ -81,4 +84,7 @@ export default defineEventHandler(async (event) => {
 
 interface GitHubUser {
   id: number;
+  login: string;
+  email: string;
+  avatar_url: string;
 }

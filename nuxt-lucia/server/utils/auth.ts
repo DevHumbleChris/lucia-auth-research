@@ -2,10 +2,8 @@ import { Lucia } from "lucia";
 import { GitHub, Google } from "arctic";
 import { prisma } from "~/prisma/db";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import { PrismaClient } from "@prisma/client";
 
-const client = new PrismaClient();
-const adapter = new PrismaAdapter(client.session, client.user); // your adapter
+const adapter = new PrismaAdapter(prisma.session, prisma.user); // your adapter
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
@@ -33,14 +31,17 @@ declare module "lucia" {
 
 interface DatabaseUserAttributes {
   id: string;
-  email?: string;
-  oauthAccount?: OauthAccount;
+  email: string;
+  oauthAccount: OauthAccount;
 }
 
 interface OauthAccount {
   providerId: string;
   providerUserId: string;
-  userId?: string;
+  userId: string;
+  userEmail: string;
+  userName: string;
+  userAvatarURL: string;
 }
 
 const config = useRuntimeConfig();
@@ -50,8 +51,10 @@ export const github = new GitHub(
   config.githubClientSecret
 );
 
+console.log(config.googleRedirect);
+
 export const google = new Google(
   config.googleClientId,
   config.googleClientSecret,
-  config.googleRedirect
+  process.env.GOOGLE_REDIRECT_URI as string
 );
