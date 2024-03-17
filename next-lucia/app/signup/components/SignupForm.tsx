@@ -93,7 +93,7 @@ export default function SignupForm() {
                         </h1>
                     </div>
                     <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <Link
+                        <a
                             href="/signin/github"
                             className="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900"
                         >
@@ -110,8 +110,8 @@ export default function SignupForm() {
                                 ></path>
                             </svg>
                             With Github
-                        </Link>
-                        <Link
+                        </a>
+                        <a
                             href="/signin/google"
                             className="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900"
                         >
@@ -140,7 +140,7 @@ export default function SignupForm() {
                                 ></path>
                             </svg>
                             With Google
-                        </Link>
+                        </a>
                     </div>
                     <div className="relative mt-4">
                         <div className="absolute inset-0 flex items-center">
