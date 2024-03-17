@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 export default function SigninPage() {
     const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -11,9 +12,18 @@ export default function SigninPage() {
         e.preventDefault();
         setIsLoggingIn(true);
         try {
+            const res = await fetch('/api/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+            console.log(res)
             setIsLoggingIn(false);
         } catch (error: any) {
             setIsLoggingIn(false);
+            console.log(error)
         }
     };
     return (
