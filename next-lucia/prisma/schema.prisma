@@ -1,14 +1,44 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model OauthAccount {
+  providerId     String
+  providerUserId String
+  userEmail      String
+  userName       String
+  userAvatarURL  String
+  userId         String?  @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           user?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, providerUserId])
+  @@map("oauth_account")
+}
+
+model session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "session_userId_fkey")
+
+  @@index([userId], map: "Session_userId_fkey")
+}
+
+model user {
+  id           String        @id
+  email        String?
+  password     String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  oauthAccount OauthAccount?
+  session      session[]
 }
