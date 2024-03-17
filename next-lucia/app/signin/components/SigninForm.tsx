@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
 export default function SigninForm() {
+  const router = useRouter()
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +30,9 @@ export default function SigninForm() {
     }
 
     setIsLoggingIn(false);
-    return redirect("/");
+    setEmail("")
+    setPassword("")
+    router.push("/")
   };
   return (
     <section className="py-12">

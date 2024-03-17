@@ -1,19 +1,36 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 export default function SignupForm() {
+    const router = useRouter()
     const [isCreatingAccount, setIsCreatingAccount] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleUserSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsCreatingAccount(true)
-        try {
-        } catch (error: any) {
-            setIsCreatingAccount(true)
+        const res = await fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        })
+
+        if (!res.ok) {
+            setIsCreatingAccount(false)
+            return toast.error(res.statusText, {
+                position: 'top-right'
+            })
         }
+        setIsCreatingAccount(false)
+        setEmail("")
+        setPassword("")
+        router.push("/")
     };
     return (
         <section className="py-12">
