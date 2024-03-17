@@ -19,11 +19,15 @@ export default function SigninPage() {
                 },
                 body: JSON.stringify({ email, password }),
             })
-            console.log(res)
+
+            const data = await res.json()
             setIsLoggingIn(false);
         } catch (error: any) {
             setIsLoggingIn(false);
             console.log(error)
+            // toast.error('Failed to Signin User', {
+            //     position: 'top-right'
+            // })
         }
     };
     return (
