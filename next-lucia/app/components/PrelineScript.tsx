@@ -12,16 +12,13 @@ declare global {
 
 export default function PrelineScript() {
     const path = usePathname();
-
     useEffect(() => {
-        import("preline/preline");
-    }, []);
-
-    useEffect(() => {
-        setTimeout(() => {
-            window.HSStaticMethods.autoInit();
-        }, 100);
-    }, [path]);
+        const loadPreline = async () => {
+            await import('preline/preline')
+            window.HSStaticMethods.autoInit()
+        }
+        loadPreline()
+    }, [path])
 
     return null;
 }
