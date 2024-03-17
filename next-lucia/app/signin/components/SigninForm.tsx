@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -26,7 +27,9 @@ export default function SigninForm() {
         position: 'top-right'
       })
     }
+
     setIsLoggingIn(false);
+    return redirect("/");
   };
   return (
     <section className="py-12">
