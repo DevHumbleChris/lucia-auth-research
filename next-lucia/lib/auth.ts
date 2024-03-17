@@ -3,7 +3,7 @@ import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { prisma } from "./db";
 import { cookies } from "next/headers";
 import { cache } from "react";
-import { GitHub } from "arctic";
+import { GitHub, Google } from "arctic";
 
 import type { Session, User } from "lucia";
 
@@ -89,4 +89,10 @@ export const validateRequest = cache(
 export const github = new GitHub(
   process.env.GITHUB_CLIENT_ID!,
   process.env.GITHUB_CLIENT_SECRET!
+);
+
+export const google = new Google(
+  process.env.GOOGLE_CLIENT_ID!,
+  process.env.GOOGLE_CLIENT_SECRET!,
+  process.env.GOOGLE_REDIRECT_URI!
 );

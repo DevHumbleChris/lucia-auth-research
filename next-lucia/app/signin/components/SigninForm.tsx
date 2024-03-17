@@ -114,7 +114,7 @@ export default function SigninForm() {
               With Github
             </a>
             <a
-              href="/signin/google"
+              href="/api/signin/google"
               className="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900"
             >
               <svg
