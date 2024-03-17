@@ -1,6 +1,12 @@
+import { validateRequest } from "@/lib/auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const { user } = await validateRequest();
+  if (!user) {
+    return redirect("/signin");
+  }
   return (
     <section className="my-24 mx-3">
       {/* Connection Card */}
@@ -98,6 +104,5 @@ export default function Home() {
       </div>
       {/* End Connection Card */}
     </section>
-
   );
 }

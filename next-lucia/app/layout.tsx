@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
-import PrelineScript from "./components/PrelineScript";
 import { Toaster } from 'sonner'
 import "./globals.css";
 
@@ -16,9 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={GeistSans.className}>{children}</body>
-      <PrelineScript />
-      <Toaster />
+      <body className={GeistSans.className}>
+        {children}
+        <Toaster richColors closeButton />
+      </body>
     </html>
   );
 }
