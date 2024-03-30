@@ -7,7 +7,7 @@ export default async function Home() {
   if (!user) {
     return redirect("/signin");
   }
-
+  console.log(user.oauthAccount)
   return (
     <Homepage user={user} />
   );

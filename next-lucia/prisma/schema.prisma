@@ -16,29 +16,29 @@ model OauthAccount {
   userId         String?  @unique
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  user           user?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([providerId, providerUserId])
   @@map("oauth_account")
 }
 
-model session {
+model Session {
   id        String   @id
   userId    String
   expiresAt DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "session_userId_fkey")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "session_userId_fkey")
 
   @@index([userId], map: "Session_userId_fkey")
 }
 
-model user {
+model User {
   id           String        @id
   email        String?
   password     String?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   oauthAccount OauthAccount?
-  session      session[]
+  session      Session[]
 }

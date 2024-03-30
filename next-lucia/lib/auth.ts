@@ -18,14 +18,7 @@ export const lucia = new Lucia(adapter, {
       secure: process.env.NODE_ENV === "production",
     },
   },
-  getUserAttributes: (attributes) => {
-    return {
-      // we don't need to expose the hashed password!
-      id: attributes.id,
-      email: attributes.email,
-      oauthAccount: attributes.oauthAccount,
-    };
-  },
+  getUserAttributes: (attributes) => attributes,
 });
 
 declare module "lucia" {
