@@ -4,10 +4,12 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const { user } = await validateRequest();
+  const { user, session } = await validateRequest();
   if (!user) {
     return redirect("/login");
   }
+
+  console.log(user)
   return (
     <Homepage />
   );

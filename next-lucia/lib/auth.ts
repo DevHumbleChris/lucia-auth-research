@@ -5,10 +5,52 @@ import { cookies } from "next/headers";
 import { cache } from "react";
 import { GitHub, Google } from "arctic";
 
-import type { Session, User } from "lucia";
+import type { DatabaseSession, DatabaseUser, Session, User } from "lucia";
+import { PrismaClient } from "@prisma/client";
 
 // import { webcrypto } from "crypto";
 // globalThis.crypto = webcrypto as Crypto;
+
+function transformIntoDatabaseSession(raw: Session): DatabaseSession {
+  const { id, userId, expiresAt, ...attributes } = raw;
+  return {
+    id,
+    userId,
+    expiresAt,
+    attributes,
+  };
+}
+
+function transformIntoDatabaseUser(raw: User): DatabaseUser {
+  const { id, email, oauthAccount } = raw;
+  return {
+    id,
+    attributes,
+  };
+}
+
+class CustomAdapter extends PrismaAdapter<PrismaClient> {
+  public async getSessionAndUser(
+    sessionId: string
+  ): Promise<[session: DatabaseSession | null, user: DatabaseUser | null]> {
+    const result = await prisma.session.findFirst({
+      where: {
+        id: sessionId,
+      },
+      include: {
+        user: {
+          select: {
+            createdAt: true,
+            email: true,
+            id: true,
+            oauthAccount: true,
+            updatedAt: true,
+          },
+        },
+      },
+    });
+  }
+}
 
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
 

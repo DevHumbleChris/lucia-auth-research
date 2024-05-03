@@ -1,11 +1,82 @@
 import { Lucia } from "lucia";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { prisma } from "./db";
-import { cookies } from "next/headers";
+import { cookies } from "next/headers"; // Leave this unchanged
 import { cache } from "react";
 import { GitHub, Google } from "arctic";
 
-import type { Session, User } from "lucia";
+import type { DatabaseSession, DatabaseUser, Session, User } from "lucia";
+import { PrismaClient } from "@prisma/client";
+
+function transformIntoDatabaseSession(
+  raw: {
+    user: {
+      id: string;
+      email: string;
+      OAuthAccount: {
+        providerId: string;
+        providerUserId: string;
+        userId: string;
+      }[];
+    };
+  } & {
+    id: string;
+    userId: string;
+    expiresAt: Date;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+): DatabaseSession {
+  const { id, userId, expiresAt, ...attributes } = raw;
+  return {
+    id,
+    userId,
+    expiresAt,
+    attributes,
+  };
+}
+
+function transformIntoDatabaseUser(raw: {
+  user: {
+    id: string;
+    email: string;
+    OAuthAccount: OauthAccount[];
+  };
+}): DatabaseUser {
+  const { id, ...attributes } = raw.user;
+  return {
+    id,
+    attributes,
+  };
+}
+
+class CustomAdapter extends PrismaAdapter<PrismaClient> {
+  public async getSessionAndUser(
+    sessionId: string
+  ): Promise<[session: DatabaseSession | null, user: DatabaseUser | null]> {
+    const result = await prisma.session.findFirst({
+      where: {
+        id: sessionId,
+      },
+      include: {
+        user: {
+          select: {
+            email: true,
+            id: true,
+            OAuthAccount: true,
+          },
+        },
+      },
+    });
+
+    if (!result) return [null, null];
+
+    return [
+      transformIntoDatabaseSession(result),
+      transformIntoDatabaseUser(result),
+    ];
+  }
+}
 
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
 
@@ -21,22 +92,17 @@ export const lucia = new Lucia(adapter, {
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
-    DatabaseUserAttributes: DatabaseUserAttributes;
+    DatabaseUserAttributes: {
+      id: string;
+      email: string;
+      OAuthAccount: OauthAccount[];
+    };
   }
-}
-
-interface DatabaseUserAttributes {
-  id: string;
-  email: string;
 }
 
 interface OauthAccount {
   providerId: string;
   providerUserId: string;
-  userId: string;
-  userEmail: string;
-  userName: string;
-  userAvatarURL: string;
 }
 
 export const validateRequest = cache(

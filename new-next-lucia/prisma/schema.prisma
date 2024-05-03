@@ -16,11 +16,12 @@ datasource db {
 model User {
   id       String    @id
   email    String    @unique
-  password String
+  password String?
   sessions Session[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  OAuthAccount OAuthAccount[]
 }
 
 model Session {
@@ -34,4 +35,14 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade, map: "session_userId_fkey")
 
   @@index([userId], map: "Session_userId_fkey")
+}
+
+model OAuthAccount {
+  providerId     String
+  providerUserId String
+  userId         String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@id([providerId, providerUserId])
 }

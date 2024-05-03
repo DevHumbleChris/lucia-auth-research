@@ -1,8 +1,24 @@
 "use client"
 
 import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export default function Homepage() {
+    const router = useRouter()
+
+    const handleUserLogout = async () => {
+        const res = await fetch('/api/logout', {
+            method: 'GET'
+        })
+
+        if (!res.ok) {
+            return toast.error(res.statusText, {
+                position: 'top-right'
+            })
+        }
+        router.push("/login")
+    }
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -27,6 +43,17 @@ export default function Homepage() {
                             priority
                         />
                     </a>
+                </div>
+
+                <div>
+                    <button onClick={() => handleUserLogout()} type="button" className="relative bg-indigo-600 hover:bg-indigo-500 flex items-center gap-2 py-2 px-3 w-full sm:w-auto text-center sm:text-start rounded-lg cursor-pointer text-sm font-medium focus:outline-none">
+                        <svg className="flex-shrink-0 w-3.5 h-3.5 mt-0 text-white" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span className="relative z-10 justify-center items-center gap-x-1.5 text-gray-200 dark:text-white dark:peer-checked:text-white">
+                            Logout
+                        </span>
+                    </button>
                 </div>
             </div>
 
